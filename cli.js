@@ -68,7 +68,6 @@ const app = express()
 if (argv.cors) {
   app.use(cors())
 }
-console.log(argv)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(argv.mountpoint, grpcGateway(argv._, argv.grpc, credentials, !argv.quiet, argv.include))
