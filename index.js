@@ -60,7 +60,8 @@ const middleware = (protoFiles, grpcLocation, credentials = requiredGrpc.credent
                   const meta = convertHeaders(req.headers, grpc)
                   if (debug) {
                     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-                    console.log(`GATEWAY: ${colors.yellow((new Date()).toISOString())} (${colors.cyan(ip)}): /${colors.blue(pkg.replace(/\./g, colors.white('.')))}.${colors.blue(svc)}/${colors.cyan(m.name)}(${colorize(params)})`)
+                    const pkgname = pkg ? colors.blue(pkg.replace(/\./g, colors.white('.'))) + '.' : ''
+                    console.log(`GATEWAY: ${colors.yellow((new Date()).toISOString())} (${colors.cyan(ip)}): /${pkgname}${colors.blue(svc)}/${colors.cyan(m.name)}(${colorize(params)})`)
                   }
 
                   try {
@@ -95,6 +96,10 @@ const getPkg = (client, pkg, create = false) => {
 
   if (((pkg || '').indexOf('.') !== -1) && client[pkg] !== undefined) {
     return client[pkg]
+  }
+
+  if (pkg === null) {
+    return client
   }
 
   const ls = pkg.split('.')
