@@ -7,6 +7,7 @@ const yargs = require('yargs')
 const express = require('express')
 const bodyParser = require('body-parser')
 const grpc = require('grpc')
+const cors = require('cors')
 
 const argv = yargs.usage('Usage: $0 [options] DEFINITION.proto [DEFINITION2.proto...]')
   .help('?')
@@ -20,6 +21,10 @@ const argv = yargs.usage('Usage: $0 [options] DEFINITION.proto [DEFINITION2.prot
   .default('grpc', process.env.GRPC_HOST || 'localhost:50051')
   .describe('grpc', 'The host & port to connect to, where your gprc-server is running')
   .alias('grpc', 'g')
+
+  .boolean('cors')
+  .default('cors', false)
+  .describe('cors', 'enable cors')
 
   .describe('I', 'Path to resolve imports from')
   .alias('I', 'include')
@@ -60,6 +65,10 @@ if (argv.ca || argv.key || argv.cert) {
 }
 
 const app = express()
+if (argv.cors) {
+  app.use(cors())
+}
+console.log(argv)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(argv.mountpoint, grpcGateway(argv._, argv.grpc, credentials, !argv.quiet, argv.include))

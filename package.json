@@ -1,5 +1,5 @@
 {
-  "name": "grpc-dynamic-gateway",
+  "name": "grpc-dynamic-gateway-cors",
   "version": "0.4.1",
   "description": "Like grpc-gateway, but written in node and dynamic.",
   "main": "index.js",
@@ -32,12 +32,13 @@
   },
   "homepage": "https://github.com/konsumer/grpc-dynamic-gateway#readme",
   "dependencies": {
+    "@grpc/proto-loader": "0.3.0",
     "body-parser": "^1.18.2",
     "chalk": "^2.3.2",
+    "cors": "^2.8.5",
     "express": "^4.16.3",
     "grpc": "^1.16.1",
     "json-colorizer": "^2.0.0",
-    "@grpc/proto-loader": "0.3.0",
     "protocol-buffers-schema": "^3.3.2",
     "yargs": "^13.1.0"
   },
