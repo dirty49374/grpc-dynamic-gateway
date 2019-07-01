@@ -1,10 +1,10 @@
 {
-  "name": "grpc-dynamic-gateway",
+  "name": "grpc-dynamic-gateway-cors",
   "version": "0.4.1",
   "description": "Like grpc-gateway, but written in node and dynamic.",
   "main": "index.js",
   "bin": {
-    "grpc-dynamic-gateway": "cli.js"
+    "grpc-dynamic-gateway-cors": "cli.js"
   },
   "scripts": {
     "test": "jest",
